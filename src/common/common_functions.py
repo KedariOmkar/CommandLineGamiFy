@@ -471,21 +471,21 @@ def refresh_database():
 
 """ Function which converts the number to inr amount """
 
-
 def numer_to_inr(amount):
     return "₹{:,.2f}".format(amount)
 
 def open_browser(urls):
     # Path to the Brave browser executable
-    brave_path = "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+    brave_path = "C:\\Program Files\\Internet Explorer\\iexplore.exe"
+    # C:\Program Files\Internet Explorer
 
-    # Set up options for Brave in incognito mode
-    options = Options()
-    options.binary_location = brave_path
-    options.add_argument("--incognito")
-
-    # Initialize the WebDriver with the Brave options
-    driver = webdriver.Chrome(options=options)
+    # # Set up options for Brave in incognito mode
+    # options = Options()
+    # options.binary_location = brave_path
+    # options.add_argument("--incognito")
+    #
+    # # Initialize the WebDriver with the Brave options
+    driver = webdriver.Chrome()
 
     # Open tabs in incognito window
     for images in urls:
@@ -502,12 +502,11 @@ def open_browser(urls):
         print("Browser remains open.")
 
 
-
 """ Function which terminates the application """
 def terminate_application(window_title):
     try:
         for process in psutil.process_iter(['pid', 'name', 'cmdline']):
-            if "brave.exe" in process.info['name'].lower() and window_title in " ".join(process.info['cmdline']).lower():
+            if "msedge.exe" in process.info['name'].lower() and window_title in " ".join(process.info['cmdline']).lower():
                 try:
                     p = psutil.Process(process.info['pid'])
                     p.terminate()
@@ -530,6 +529,7 @@ def get_date():
 
     except Exception as e:
         print("\t\t! Exception - get_date():", e)
+
 """ Function which converts the number to words """
 def number_to_words_inr(number):
     words = humanize.intword(number, format='%.2f')
@@ -553,7 +553,6 @@ def update_bank_account():
 
     except Exception as e:
         print("\t\t! Exception - update_bank_account():", e)
-
 
 
 def fetchFromSetting(game_option):

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enemy Agents</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+    <style>
+        /* Custom styles */
+        .enemy-card {
+            transition: all 0.3s ease;
+        }
+
+        .enemy-card:hover {
+            transform: scale(1.05);
+        }
+
+        .health-bar {
+            background-color: #ff5555;
+            height: 10px;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .health-bar-fill {
+            background-color: #33cc33;
+            height: 10px;
+            border-radius: 5px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 50%;
+        }
+
+        .stat-icon {
+            font-size: 24px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+
+    <header class="bg-gray-800 p-4 text-center">
+        <h1 class="text-3xl font-bold mb-4">Enemy Agents</h1>
+    </header>
+
+
+    <div class="container mx-auto p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+
+        {% for agent in agents %}
+        <div class="enemy-card bg-gray-700 shadow-lg rounded-lg p-4">
+            <img src="{{ agent['agent_face'] }}" alt="Agent Face" class="w-24 h-24 rounded-full mb-4">
+            <h2 class="text-2xl font-semibold text-gray-100 mb-2">{{ agent['agent_name'] }}</h2>
+            <p class="text-gray-400 mb-4"><strong>Mafia:</strong> {{ agent['agent_mafia'] }}</p>
+            <div class="stats">
+                <div class="stat">
+                    <i class="fas fa-skull-crossbones stat-icon text-red-500"></i>
+                    <span class="stat-value" id="kill-count-{{agent['agent_id']}}">Kills: {{ agent['agent_kill'] }}</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-first-aid stat-icon text-blue-500"></i>
+                    <span class="stat-value">Harm: {{ agent['agent_harm'] }}</span>
+                </div>
+            </div>
+            <div class="flex justify-between items-center mt-4">
+                <button
+                    type="button"
+                    onclick="attackAgent({{ agent['agent_id'] }})"
+                    class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-200">
+                    Attack
+                </button>
+                <button
+                    type="button"
+                    onclick="getHarm({{ agent['agent_id'] }})"
+                    class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200">
+                    Get Harm
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+
+
+    <script>
+        // Function to attack agent
+        function attackAgent(agentId) {
+            fetch(`/attack_agent`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ agent_id: agentId }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update the agent kill count on the frontend
+                    const killCountElement = document.querySelector(`#kill-count-${agentId}`);
+                    killCountElement.textContent = `Kills: ${data.new_kill_count}`;
+                } else {
+                    alert("Failed to attack agent.");
+                }
+            })
+             .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Function to get harm from agent
+        function getHarm(agentId) {
+            fetch(`/get_harm`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ agent_id: agentId }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update the agent harm count on the frontend
+                    const harmCountElement = document.querySelector(`#harm-count-${agentId}`);
+                    harmCountElement.textContent = `Harm: ${data.new_harm_count}`;
+                } else {
+                    alert("Failed to get harm from agent.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+
+
+</body>
+</html>

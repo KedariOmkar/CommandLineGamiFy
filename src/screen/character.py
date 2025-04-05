@@ -1,6 +1,7 @@
 import sys
 import os
 
+import winsound
 
 sys.path.append("W:\\Builds\\Python\\GAMIFYGOALS\\gamifygoals")
 
@@ -9,16 +10,24 @@ from datetime import datetime
 from src.common.common_constants import var
 from src.database.mysql_connection import sql
 from src.common.common_imports import *
-from src.common.common_functions import open_browser, terminate_application, number_to_inr
+from src.common.common_functions import (
+    open_browser,
+    terminate_application,
+    number_to_inr,
+)
 
 # ---------------------------------------------------------------------------------------------------------------------
 
 while True:
-    os.system('cls')
+    os.system("cls")
 
-    print("------------------------------------------------------------------------------------------------------------")
+    print(
+        "------------------------------------------------------------------------------------------------------------"
+    )
     print("\t# OPTIONS")
-    print("------------------------------------------------------------------------------------------------------------")
+    print(
+        "------------------------------------------------------------------------------------------------------------"
+    )
     print("  :: CHARACTER")
     print("\t :: LIFESTYLE")
     print("\t\t1. ROUTINE")
@@ -29,7 +38,11 @@ while True:
     print("\t\t5. SILENT")
     print("  :: BANK")
     print("\t\t6. ACCOUNT")
-    print("------------------------------------------------------------------------------------------------------------")
+    print("  :: TIME")
+    print("\t\t7. MINUTES")
+    print(
+        "------------------------------------------------------------------------------------------------------------"
+    )
 
     option = int(input("\t Option: "))
 
@@ -38,6 +51,7 @@ while True:
 
     else:
         if option == 1:
+
             def routine():
 
                 def check_percentage():
@@ -48,9 +62,18 @@ while True:
 
                     target_routine = 25
 
-                    routine_percentage = int((total_count/target_routine)*100)
+                    routine_percentage = int((total_count / target_routine) * 100)
 
                     return routine_percentage
+
+                def check_if_routine_hit(column):
+                    fetch_routine = f"select {column} from character_routine where cur_date = CURDATE()"
+                    sql.server.execute(fetch_routine)
+                    for x in sql.server:
+                        if x[0] == 0:
+                            return "\u2717"
+                        else:
+                            return "\u2713"
 
                 def get_routine_ticked():
                     fetch_ticked = "select total_routine from character_routine where cur_date = CURDATE()"
@@ -70,49 +93,55 @@ while True:
                     sql.engine.commit()
 
                 while True:
-                    os.system('cls')
-                    print("------------------------------------------------------------------------------------------------------------")
-                    print(f"\t# ROUTINE : {check_percentage()} %   -  TICKED : {get_routine_ticked()}")
-                    print("------------------------------------------------------------------------------------------------------------")
-                    print(f"\t\t :A. {var.routine_a}")
-                    print(f"\t\t :B. {var.routine_b}")
-                    print(f"\t\t :C. {var.routine_c}")
-                    print(f"\t\t :D. {var.routine_d}")
-                    print(f"\t\t :E. {var.routine_e}")
-                    print(f"\t\t :F. {var.routine_f}")
-                    print(f"\t\t :G. {var.routine_g}")
-                    print(f"\t\t :H. {var.routine_h}")
-                    print(f"\t\t :I. {var.routine_i}")
-                    print(f"\t\t :J. {var.routine_j}")
-                    print(f"\t\t :K. {var.routine_k}")
-                    print(f"\t\t :L. {var.routine_l}")
-                    print(f"\t\t :M. {var.routine_m}")
-                    print(f"\t\t :N. {var.routine_n}")
-                    print(f"\t\t :O. {var.routine_o}")
-                    print(f"\t\t :P. {var.routine_p}")
-                    print(f"\t\t :Q. {var.routine_q}")
-                    print(f"\t\t :R. {var.routine_r}")
-                    print(f"\t\t :S. {var.routine_s}")
-                    print(f"\t\t :T. {var.routine_t}")
-                    print(f"\t\t :U. {var.routine_u}")
-                    print(f"\t\t :V. {var.routine_v}")
-                    print(f"\t\t :W. {var.routine_w}")
-                    print(f"\t\t :X. {var.routine_x}")
-                    print(f"\t\t :Y. {var.routine_y}")
-                    print(f"\t\t :Z. {var.routine_z}")
-                    print("------------------------------------------------------------------------------------------------")
+                    os.system("cls")
+                    print(
+                        "------------------------------------------------------------------------------------------------------------"
+                    )
+                    print(
+                        f"\t# ROUTINE : {check_percentage()} %   -  TICKED : {get_routine_ticked()}"
+                    )
+                    print(
+                        "------------------------------------------------------------------------------------------------------------"
+                    )
+                    print(f"\t\t{check_if_routine_hit('a')} :A. {var.routine_a}")
+                    print(f"\t\t{check_if_routine_hit('b')} :B. {var.routine_b}")
+                    print(f"\t\t{check_if_routine_hit('c')} :C. {var.routine_c}")
+                    print(f"\t\t{check_if_routine_hit('d')} :D. {var.routine_d}")
+                    print(f"\t\t{check_if_routine_hit('e')} :E. {var.routine_e}")
+                    print(f"\t\t{check_if_routine_hit('f')} :F. {var.routine_f}")
+                    print(f"\t\t{check_if_routine_hit('g')} :G. {var.routine_g}")
+                    print(f"\t\t{check_if_routine_hit('h')} :H. {var.routine_h}")
+                    print(f"\t\t{check_if_routine_hit('i')} :I. {var.routine_i}")
+                    print(f"\t\t{check_if_routine_hit('j')} :J. {var.routine_j}")
+                    print(f"\t\t{check_if_routine_hit('k')} :K. {var.routine_k}")
+                    print(f"\t\t{check_if_routine_hit('l')} :L. {var.routine_l}")
+                    print(f"\t\t{check_if_routine_hit('m')} :M. {var.routine_m}")
+                    print(f"\t\t{check_if_routine_hit('n')} :N. {var.routine_n}")
+                    print(f"\t\t{check_if_routine_hit('o')} :O. {var.routine_o}")
+                    print(f"\t\t{check_if_routine_hit('p')} :P. {var.routine_p}")
+                    print(f"\t\t{check_if_routine_hit('q')} :Q. {var.routine_q}")
+                    print(f"\t\t{check_if_routine_hit('r')} :R. {var.routine_r}")
+                    print(f"\t\t{check_if_routine_hit('s')} :S. {var.routine_s}")
+                    print(f"\t\t{check_if_routine_hit('t')} :T. {var.routine_t}")
+                    print(f"\t\t{check_if_routine_hit('u')} :U. {var.routine_u}")
+                    print(f"\t\t{check_if_routine_hit('v')} :V. {var.routine_v}")
+                    print(f"\t\t{check_if_routine_hit('x')} :X. {var.routine_x}")
+                    print(f"\t\t{check_if_routine_hit('y')} :Y. {var.routine_y}")
+                    print(f"\t\t{check_if_routine_hit('z')} :Z. {var.routine_z}")
+                    print(
+                        "------------------------------------------------------------------------------------------------"
+                    )
                     print("--")
                     routine_id = input("\t Enter Id: ")
                     print("--")
                     time.sleep(1)
 
-                    if routine_id == '0':
+                    if routine_id == "0":
                         os.system(var.character_screen)
 
-                    if routine_id == 'x':
-                        os.system('cls')
+                    if routine_id == "x":
+                        os.system("cls")
                         print("\t :: AMOUNT LOST")
-
 
                     else:
 
@@ -120,28 +149,26 @@ while True:
                         see_id = f"select {routine_id} from character_routine where cur_date = CURDATE()"
                         sql.server.execute(see_id)
                         for x in sql.server:
-                            result = (x[0])
+                            result = x[0]
 
                         if result == 0:
 
-                            if routine_id == 'a':
-
-                                open_browser('https://cdn.britannica.com/17/155017-050-9AC96FC8/Example-QR-code.jpg')
-                                time.sleep(20)
-                                open_browser('https://i.pinimg.com/736x/3d/db/e2/3ddbe25363b309c805757ac406168950.jpg')
-                                time.sleep(60)
-                                terminate_application('brave.exe')
+                            if routine_id == "a":
 
                                 def get_up_protocol():
                                     # Get the current time
-                                    current_time_hr = datetime.now().strftime('%I')
+                                    current_time_hr = datetime.now().strftime("%I")
                                     current_time_min = datetime.now().strftime("%M")
                                     current_time_abbr = datetime.now().strftime("%p")
 
-                                    if int(current_time_hr) == 3 and int(current_time_min) < 25:
+                                    if (
+                                        int(current_time_hr) == 3
+                                        and int(current_time_min) < 25
+                                    ):
                                         # Add money to the account
                                         sql.server.execute(
-                                            f'update report_money set lifestyle = lifestyle + {250000000} where cur_date = CURDATE()')
+                                            f"update report_money set lifestyle = lifestyle + {250000000} where cur_date = CURDATE()"
+                                        )
                                         sql.engine.commit()
 
                                         add_routine_count = f"update character_routine set {routine_id} = {1} where cur_date = CURDATE()"
@@ -153,10 +180,14 @@ while True:
                                         sql.server.execute(add_money_to_bank)
                                         sql.engine.commit()
 
+                                        winsound.Beep(500, 2000)
                                         print("\t Credited $25,00,00,000 INR ")
-                                        open_browser('https://www.notion.so/Purusharth-d8f445209077449f8f80bf4079670260?pvs=4')
-                                        time.sleep(120)
+                                        open_browser(
+                                            "https://cdn.exoticindia.com/articlebodies/files/1693295878.gif"
+                                        )
                                         print("\t\t Lets WAR...")
+                                        time.sleep(120)
+                                        winsound.Beep(500, 2000)
 
                                 get_up_protocol()
                                 update_total_routine()
@@ -172,14 +203,17 @@ while True:
                                 sql.engine.commit()
 
                                 # add the money to bank
-                                add_money_to_bank = f"update game_bank set earned = earned + {10000000}"
+                                add_money_to_bank = (
+                                    f"update game_bank set earned = earned + {10000000}"
+                                )
                                 sql.server.execute(add_money_to_bank)
                                 sql.engine.commit()
 
                                 print("\t\t Routine Ticked.....")
+                                winsound.Beep(500, 1000)
+                                time.sleep(1)
 
                                 update_total_routine()
-
 
                         else:
                             time.sleep(2)
@@ -187,8 +221,9 @@ while True:
                             update_total_routine()
 
             routine()
-            
+
         if option == 2:
+
             def habit():
 
                 def check_percentage():
@@ -199,7 +234,7 @@ while True:
 
                     target_habit = 25
 
-                    habit_percentage = int((total_count/target_habit)*100)
+                    habit_percentage = int((total_count / target_habit) * 100)
 
                     return habit_percentage
 
@@ -221,10 +256,16 @@ while True:
                     sql.engine.commit()
 
                 while True:
-                    os.system('cls')
-                    print("------------------------------------------------------------------------------------------------------------")
-                    print(f"\t# habit : {check_percentage()} %   -  TICKED : {get_habit_ticked()}")
-                    print("------------------------------------------------------------------------------------------------------------")
+                    os.system("cls")
+                    print(
+                        "------------------------------------------------------------------------------------------------------------"
+                    )
+                    print(
+                        f"\t# habit : {check_percentage()} %   -  TICKED : {get_habit_ticked()}"
+                    )
+                    print(
+                        "------------------------------------------------------------------------------------------------------------"
+                    )
                     print("\t\t :A. ")
                     print("\t\t :B. ")
                     print("\t\t :C. ")
@@ -250,12 +291,14 @@ while True:
                     print("\t\t :X. ")
                     print("\t\t :Y. ")
                     print("\t\t :Z. ")
-                    print("------------------------------------------------------------------------------------------------")
+                    print(
+                        "------------------------------------------------------------------------------------------------"
+                    )
                     print("--")
                     habit_id = input("\t Enter Id: ")
                     print("--")
 
-                    if habit_id == '0':
+                    if habit_id == "0":
                         os.system(var.character_screen)
                     else:
                         print("\t\t habit Ticked.....")
@@ -263,16 +306,14 @@ while True:
                         see_id = f"select {habit_id} from character_habit where cur_date = CURDATE()"
                         sql.server.execute(see_id)
                         for x in sql.server:
-                            result = (x[0])
+                            result = x[0]
 
                         if result == 0:
                             add_habit_count = f"update character_habit set {habit_id} = {habit_id} +  {1} where cur_date = CURDATE()"
                             sql.server.execute(add_habit_count)
                             sql.engine.commit()
 
-
                             update_total_habit()
-
 
                         else:
                             print("\t Already Ticked...")
@@ -285,7 +326,9 @@ while True:
             def shield():
 
                 def hC(workout):
-                    highest_count = f"select MAX({workout}) from character_physiqe_shield"
+                    highest_count = (
+                        f"select MAX({workout}) from character_physiqe_shield"
+                    )
                     sql.server.execute(highest_count)
                     for x in sql.server:
                         high_count = int(x[0])
@@ -310,15 +353,19 @@ while True:
                     return total_workout
 
                 while True:
-                    os.system('cls')
+                    os.system("cls")
                     start_time = time.time()
 
                     print("--")
 
-                    print("-------------------------------------------------------------------------------------------------------------------")
+                    print(
+                        "-------------------------------------------------------------------------------------------------------------------"
+                    )
                     print("\t # Workout Reps: ", get_total_workout())
                     print("\t # Mission Done :", int(get_total_workout() / 12))
-                    print("-------------------------------------------------------------------------------------------------------------------")
+                    print(
+                        "-------------------------------------------------------------------------------------------------------------------"
+                    )
                     print("")
                     print(f"\t 1:: CHEST : {tC('chest')}><{hC('chest')}")
                     print("")
@@ -337,7 +384,9 @@ while True:
                     print(f"\t 8:: FOREARM : {tC('forearm')}><{hC('forearm')}")
                     print("")
 
-                    print("-------------------------------------------------------------------------------------------------------------------")
+                    print(
+                        "-------------------------------------------------------------------------------------------------------------------"
+                    )
                     print("")
                     workout_id = int(input("\t\t ::: Workout ID: "))
                     if workout_id == 0:
@@ -351,7 +400,7 @@ while True:
                         sql.engine.commit()
 
                         # update the workout in skill_sh
-                        total_mission = int(get_total_workout()/12)
+                        total_mission = int(get_total_workout() / 12)
                         update_mission = f"update skill_sh set mission_recall = {total_mission} where id = {302}"
                         sql.server.execute(update_mission)
                         sql.engine.commit()
@@ -366,15 +415,14 @@ while True:
                         sql.server.execute(update_mission_report)
                         sql.engine.commit()
 
-
                         # update the money
-                        money_time = int(worked*10000000)
+                        money_time = int(worked * 10000000)
                         update_money = f"update report_money set times = times + {money_time} where cur_date = CURDATE()"
                         sql.server.execute(update_money)
                         sql.engine.commit()
 
                         # update the money mission
-                        money_mission = int(total_mission*10000000)
+                        money_mission = int(total_mission * 10000000)
                         update_money_mission = f"update report_money set mission = mission + {money_mission} where cur_date = CURDATE()"
                         sql.server.execute(update_money_mission)
                         sql.engine.commit()
@@ -385,7 +433,6 @@ while True:
                         sql.server.execute(money_update_bank)
                         sql.engine.commit()
 
-
                         os.system(var.character_screen)
                     else:
 
@@ -394,8 +441,16 @@ while True:
                         print("")
 
                         # chest | back | shoulder | abs  | leg  | bicep | tricep | forearm
-                        key = {1: 'chest', 2: 'back', 3: 'shoulder', 4: 'abs', 5: 'leg', 6: 'bicep', 7: 'tricep',
-                               8: 'forearm'}
+                        key = {
+                            1: "chest",
+                            2: "back",
+                            3: "shoulder",
+                            4: "abs",
+                            5: "leg",
+                            6: "bicep",
+                            7: "tricep",
+                            8: "forearm",
+                        }
 
                         # Add Count
                         add_count = f"update character_physiqe_shield set {key.get(workout_id)} = {key.get(workout_id)} + {workout_rep} where cur_date = CURDATE()"
@@ -421,7 +476,9 @@ while True:
 
             def sharp():
                 def hC(workout):
-                    highest_count = f"select MAX({workout}) from character_physiqe_sharp"
+                    highest_count = (
+                        f"select MAX({workout}) from character_physiqe_sharp"
+                    )
                     sql.server.execute(highest_count)
                     for x in sql.server:
                         high_count = int(x[0])
@@ -446,14 +503,18 @@ while True:
                     return total_workout
 
                 while True:
-                    os.system('cls')
+                    os.system("cls")
                     start_time = time.time()
                     print("--")
 
-                    print("-------------------------------------------------------------------------------------------------------------------")
+                    print(
+                        "-------------------------------------------------------------------------------------------------------------------"
+                    )
                     print("\t # Workout Reps: ", get_total_workout())
                     print("\t # Mission Done :", int(get_total_workout() / 12))
-                    print("-------------------------------------------------------------------------------------------------------------------")
+                    print(
+                        "-------------------------------------------------------------------------------------------------------------------"
+                    )
                     print("")
                     print(f"\t 1:: PUNCH : {tC('punch')}><{hC('punch')}")
                     print("")
@@ -465,7 +526,8 @@ while True:
                     print("")
 
                     print(
-                        "-------------------------------------------------------------------------------------------------------------------")
+                        "-------------------------------------------------------------------------------------------------------------------"
+                    )
                     print("")
                     workout_id = int(input("\t\t ::: Workout ID: "))
                     if workout_id == 0:
@@ -520,7 +582,7 @@ while True:
 
                         print("")
 
-                        key = {1: 'punch', 2: 'strike', 3: 'kick', 4: 'defense'}
+                        key = {1: "punch", 2: "strike", 3: "kick", 4: "defense"}
 
                         # Add Count
                         add_count = f"update character_physiqe_sharp set {key.get(workout_id)} = {key.get(workout_id)} + {workout_rep} where cur_date = CURDATE()"
@@ -538,10 +600,8 @@ while True:
                         sql.server.execute(update_total_count)
                         sql.engine.commit()
 
-
-
                         print("\t ------- Workout Done ------- ")
-                        os.system('cls')
+                        os.system("cls")
 
             sharp()
 
@@ -549,7 +609,9 @@ while True:
 
             def silent():
                 def hC(workout):
-                    highest_count = f"select MAX({workout}) from character_physiqe_silent"
+                    highest_count = (
+                        f"select MAX({workout}) from character_physiqe_silent"
+                    )
                     sql.server.execute(highest_count)
                     for x in sql.server:
                         high_count = int(x[0])
@@ -574,17 +636,19 @@ while True:
                     return total_workout
 
                 while True:
-                    os.system('cls')
+                    os.system("cls")
                     start_time = time.time()
                     print("--")
 
                     print(
-                        "-------------------------------------------------------------------------------------------------------------------")
+                        "-------------------------------------------------------------------------------------------------------------------"
+                    )
                     print("\t # Workout Reps: ", get_total_workout())
                     print("\t # Mission Done :", int(get_total_workout() / 12))
                     print(
-                        "-------------------------------------------------------------------------------------------------------------------")
-                    print("") # focus | breath | power
+                        "-------------------------------------------------------------------------------------------------------------------"
+                    )
+                    print("")  # focus | breath | power
                     print(f"\t 1:: FOCUS : {tC('focus')}><{hC('focus')}")
                     print("")
                     print(f"\t 2:: BREATH : {tC('breath')}><{hC('breath')}")
@@ -593,7 +657,8 @@ while True:
                     print("")
 
                     print(
-                        "-------------------------------------------------------------------------------------------------------------------")
+                        "-------------------------------------------------------------------------------------------------------------------"
+                    )
                     print("")
                     workout_id = int(input("\t\t ::: Workout ID: "))
                     if workout_id == 0:
@@ -636,7 +701,7 @@ while True:
                         sql.engine.commit()
 
                         # update in bank account
-                        total_money_earned = int(money_mission+money_time)
+                        total_money_earned = int(money_mission + money_time)
                         money_update_bank = f"update game_bank set earned = earned + {total_money_earned} where account_id = 'onk'"
                         sql.server.execute(money_update_bank)
                         sql.engine.commit()
@@ -649,7 +714,7 @@ while True:
 
                         print("")
 
-                        key = {1: 'focus', 2: 'breath', 3: 'power'}
+                        key = {1: "focus", 2: "breath", 3: "power"}
 
                         # Add Count
                         add_count = f"update character_physiqe_silent set {key.get(workout_id)} = {key.get(workout_id)} + {workout_rep} where cur_date = CURDATE()"
@@ -668,31 +733,38 @@ while True:
                         sql.engine.commit()
 
                         print("\t ------- Workout Done ------- ")
-                        os.system('cls')
+                        os.system("cls")
 
             silent()
 
         if option == 6:
-
 
             def fetch_account():
                 fetch_account_info = "select * from game_bank"
                 sql.server.execute(fetch_account_info)
                 for x in sql.server:
                     acc_name = x[0]
-                    acc_earned = (x[1]/10000000)
-                    billion = int(acc_earned/80000000000)
+                    acc_earned = x[1] / 10000000
+                    billion = int(acc_earned / 80000000000)
 
-                print(f"\t\t\t : {acc_name} - {number_to_inr(acc_earned)} Cr  -  ${billion} Bi")
+                print(
+                    f"\t\t\t : {acc_name} - {number_to_inr(acc_earned)} Cr  -  ${billion} Bi"
+                )
 
             while True:
-                os.system('cls')
-                print("------------------------------------------------------------------------------------------------")
+                os.system("cls")
+                print(
+                    "------------------------------------------------------------------------------------------------"
+                )
                 print("\t ::: BANK :::")
-                print("-------------------------------------------------------------------------------------------------")
+                print(
+                    "-------------------------------------------------------------------------------------------------"
+                )
                 print("\t\t :: Accounts")
                 fetch_account()
-                print("-------------------------------------------------------------------------------------------------")
+                print(
+                    "-------------------------------------------------------------------------------------------------"
+                )
 
                 view = int(input("View: "))
 
@@ -701,5 +773,32 @@ while True:
                 else:
                     pass
 
+        if option == 7:
 
+            def beep_every_minute():
+                frequency = 550  # Set Frequency To 1000 Hertz
+                duration = 1000  # Set Duration To 1000 ms == 1 second
 
+                while True:
+                    try:
+                        get_query = "select work_done from work_done_in_minutes;"
+                        sql.server.execute(get_query)
+                        for x in sql.server:
+                            count = x[0]
+
+                        print(f"\rMinutes: {count}", end="")
+                        winsound.Beep(frequency, duration)
+
+                        # Update the count
+                        query = (
+                            "UPDATE work_done_in_minutes SET work_done = work_done + 1"
+                        )
+                        sql.server.execute(query)
+                        sql.engine.commit()
+
+                    except Exception as e:
+                        print(f"Error while updating the database: {e}")
+
+                    time.sleep(60)
+
+            pass

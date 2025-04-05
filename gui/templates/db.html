@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Cards</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Agent Cards</h1>
+        <div class="row">
+            {% for agent in data  %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <h5 class="card-title">{{ agent.agent_name }}</h5>
+                        <p class="card-text">Mafia: {{ agent.agent_mafia }}</p>
+                        <p class="card-text">Link: <a href="{{ agent.agent_link }}">{{ agent.agent_link }}</a></p>
+                        <p class="card-text">Kill: {{ agent.agent_kill }}</p>
+                        <p class="card-text">Harm: {{ agent.agent_harm }}</p>
+                        <p class="card-text">Type: {{ agent.agent_type }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -14,46 +14,62 @@ from src.database.mysql_connection import sql
 import os
 import time
 
-from src.common.common_functions import refresh_database , open_browser , terminate_application
+from src.common.common_functions import (
+    refresh_database,
+    open_browser,
+    terminate_application,
+)
 
 
 def tasks_done():
-    tick = u'\u2713'
+    tick = "\u2713"
     fetch_done_tasks = f"select * from report_tasks where task_status = 'CHECKED'"
     sql.server.execute(fetch_done_tasks)
     for x in sql.server:
         print("\t\t-----")
         print("\t\t", tick, x[0], " | ", x[1], " | ", x[2], " | ", x[3])
 
+
 """ shows the to-complete tasks """
+
 
 def tasks_to_do(task_level):
     fetch_tasks_to_do = f"select * from report_tasks where task_status = 'UNCHECKED' and task_level = '{task_level}'"
     sql.server.execute(fetch_tasks_to_do)
     for x in sql.server:
         print("\t\t-----")
-        print("\t\t o ", x[0], " | ", x[1], " | ", x[2] ,"min")
+        print("\t\t o ", x[0], " | ", x[1], " | ", x[2], "min")
+
 
 """ Wet Total Count of tasks in list """
 
+
 def get_count(condition, task_table):
-    get_count = f"select count(task_id) from {task_table} where task_status = '{condition}'"
+    get_count = (
+        f"select count(task_id) from {task_table} where task_status = '{condition}'"
+    )
     sql.server.execute(get_count)
     for x in sql.server:
         count = x[0]
         return count
 
+
 """ calculates the time checked """
 
+
 def total_time_checked(task_table):
-    fetch_time = f"select SUM(task_time) from {task_table} where task_status = 'CHECKED'"
+    fetch_time = (
+        f"select SUM(task_time) from {task_table} where task_status = 'CHECKED'"
+    )
     sql.server.execute(fetch_time)
     for x in sql.server:
         total_time_checked = x[0]
 
     return total_time_checked
 
+
 """ calculates the time unchecked """
+
 
 def total_time_unchecked(task_table):
     fetch_time = f"select SUM(task_time) from {task_table}"
@@ -63,7 +79,9 @@ def total_time_unchecked(task_table):
 
     return total_time_unchecked
 
+
 """ Add tasks to the list """
+
 
 def add_tasks(task_table):
     while True:
@@ -87,7 +105,7 @@ def add_tasks(task_table):
 
         task_id = curr_count + 1
 
-        os.system('cls')
+        os.system("cls")
         print("-")
         print("\t! Task Id:", curr_count + 1)
         print("-")
@@ -96,12 +114,11 @@ def add_tasks(task_table):
         task_time = int(input("\t! Time Needed: "))
         print("-")
         task_level = input("\t! Level [h][m][l]: ")
-        check_list = ['h','m','l']
+        check_list = ["h", "m", "l"]
         while task_level not in check_list:
             task_level = input("\t! Level [h][m][l]: ")
         print("--")
-        task_reward = input("\t! Reward: ")
-        print("--")
+
         task_status = "UNCHECKED"
 
         add_tasks_query = f"insert into {task_table} values ( {task_id} , '{task_name}', '{task_time}', '{task_status}','{task_level}')"
@@ -113,15 +130,6 @@ def add_tasks(task_table):
         sql.server.execute(add_tasks_created)
         sql.engine.commit()
 
-        # insert documents
-        mongo_cl2.insert_one({
-            "task_id":f"{task_id}",
-            "task_reward":f"{task_reward}"
-        })
-
-
-
-
         print("\n")
         again = int(input("# Again: "))
         if again == 1:
@@ -129,15 +137,19 @@ def add_tasks(task_table):
         else:
             os.system(var.task_screen)
 
+
 """ Function to clear the list """
 
+
 def get_total_info(total_field):
-    get_total_info = f'select {total_field} from report_tasks_total'
+    get_total_info = f"select {total_field} from report_tasks_total"
     sql.server.execute(get_total_info)
     for x in sql.server:
         total_info = x[0]
 
     return total_info
+
+
 def clear(task_table):
     clear_query = f"delete from {task_table}"
     sql.server.execute(clear_query)
@@ -148,7 +160,9 @@ def clear(task_table):
     print("\t ---- List Cleared ----")
     time.sleep(3)
 
+
 """ Function to Check the task """
+
 
 def check(task_table):
     # Check if the id is already completed
@@ -182,45 +196,49 @@ def check(task_table):
             sql.server.execute(add_total_count)
             sql.engine.commit()
 
-            # reward time
-            RewardFromTask = mongo_cl2.find_one({"task_id":f"{check_id}"})
-            open_browser(RewardFromTask['task_reward'])
-            time.sleep(45)
-            terminate_application('brave.exe')
-
-
             refresh_database()
 
             print("\t\t ----- Task Completed -----")
             print("\t\t :: Money Earned : $ 1,00,00,000 Cr")
 
+
 """ Main Screen Function """
 while True:
-    os.system('cls')
-    print("-----------------------------------------------------------------------------------------------------------")
+    os.system("cls")
+    print(
+        "-----------------------------------------------------------------------------------------------------------"
+    )
     print("\t # TASKS : ")
-    print("-----------------------------------------------------------------------------------------------------------")
+    print(
+        "-----------------------------------------------------------------------------------------------------------"
+    )
     print("\t :: TOTAL :: ")
     print(f"\t\t : Tasks Created - {get_total_info('total_tasks_created')}")
     print(f"\t\t : Tasks Completed - {get_total_info('total_tasks_done')}")
     print("\t :: TODAY ::")
     print(f"\t\t : Tasks Incomplete - {get_count('UNCHECKED','report_tasks')}")
     print(f"\t\t : Tasks Completed - {get_count('CHECKED','report_tasks')}")
-    print("-----------------------------------------------------------------------------------------------------------")
+    print(
+        "-----------------------------------------------------------------------------------------------------------"
+    )
 
     print("\t ::: COMPLETED :::")
     # Level : High
     tasks_done()
-    print("-----------------------------------------------------------------------------------------------------------")
+    print(
+        "-----------------------------------------------------------------------------------------------------------"
+    )
 
     print("\t :: HIGH :: ")
-    tasks_to_do('h')
+    tasks_to_do("h")
     print("\t :: MEDIUM ::")
-    tasks_to_do('m')
+    tasks_to_do("m")
     print("\t :: LOW ::")
-    tasks_to_do('l')
+    tasks_to_do("l")
 
-    print("-----------------------------------------------------------------------------------------------------------")
+    print(
+        "-----------------------------------------------------------------------------------------------------------"
+    )
     print("--")
     print("\t! Options:  1.[ ADD ]   -   2.[ CLEAR ]   -   3.[ CHECK ]  ")
     print("--")
@@ -228,13 +246,13 @@ while True:
     print("--")
 
     if select == 1:
-        add_tasks('report_tasks')
+        add_tasks("report_tasks")
 
     if select == 2:
-        clear('report_tasks')
+        clear("report_tasks")
 
     if select == 3:
-        check('report_tasks')
+        check("report_tasks")
 
     if select == 0:
         os.system(var.home_screen)

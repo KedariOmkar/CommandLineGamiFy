@@ -1,4 +1,3 @@
-
 import sys
 import os
 
@@ -8,7 +7,12 @@ sys.path.append("W:\\Builds\\Python\\GAMIFYGOALS\\gamifygoals")
 import time
 import subprocess
 from src.common.common_constants import var
-from src.common.common_functions import number_to_inr, get_date, terminate_application, open_browser
+from src.common.common_functions import (
+    number_to_inr,
+    get_date,
+    terminate_application,
+    open_browser,
+)
 from src.database.mongodb_connection import mongo_cl
 from src.database.mysql_connection import sql
 from src.common.common_imports import *
@@ -21,11 +25,12 @@ def availableAmount():
     fetchAvailable = "select earned from game_bank where account_id = 'ONK'"
     sql.server.execute(fetchAvailable)
     for x in sql.server:
-        balance = int(x[0]/10000000)
+        balance = int(x[0] / 10000000)
 
     return balance
 
-def fetchItems(ob_cat,ob_field):
+
+def fetchItems(ob_cat, ob_field):
 
     balance = int(availableAmount())
 
@@ -42,11 +47,10 @@ def fetchItems(ob_cat,ob_field):
         ob_age = x[7]
         ob_status = x[8]
 
-        if ob_status == 'unlock':
+        if ob_status == "unlock":
             print(f"\t\t\t 🔓 - {ob_name.upper()} : {number_to_inr(ob_price)} Cr")
         else:
             print(f"\t\t\t 🔒 - {ob_name.upper()} : {number_to_inr(ob_price)} Cr")
-
 
 
 def fetchLevel(item):
@@ -57,11 +61,11 @@ def fetchLevel(item):
 
     return level
 
+
 def buyItem():
     print("--")
     item = input("\t Enter ob_name: ")
     print("--")
-
 
     # Fetch Item ob_name :
     def fetchDetails(item):
@@ -84,13 +88,12 @@ def buyItem():
             print(f"\t Unlock : {number_to_inr(x[3]/10000000)} Cr")
             print("--")
 
-
         buy = int(input("\t :: Confirm Buy: "))
 
         if buy == 1:
             print(" :: TRANSACTION :: ")
             pin = input("\t ! Enter Pin: ")
-            if pin == 'onk':
+            if pin == "onk":
                 print("")
 
                 balance_available = int(availableAmount() * 100000000)
@@ -112,7 +115,6 @@ def buyItem():
                 sql.server.execute(update_status)
                 sql.engine.commit()
 
-
                 print(" :: TRASANCTION COMPLETED ::")
                 print("")
                 print("\t\t ::: Item Bought :::")
@@ -123,7 +125,7 @@ def buyItem():
 
                     pics_list = []
                     if result:
-                        pics = result.get('pics', [])
+                        pics = result.get("pics", [])
                         pics_list.extend(pics)
 
                         if pics_list:
@@ -138,14 +140,17 @@ def buyItem():
                             # Wait for user input to close the browser
                             while True:
                                 user_input = input("Quit: ")
-                                if user_input.lower() == 'q':
+                                if user_input.lower() == "q":
                                     # Terminate the browser process
-                                    terminate_application('msedge.exe')
+                                    terminate_application("msedge.exe")
                                     break
                                 else:
-                                    print("Invalid input. Press 'q' to close the browser.")
+                                    print(
+                                        "Invalid input. Press 'q' to close the browser."
+                                    )
                         else:
                             print("No pics found.")
+
                 view_images(item)
 
             else:
@@ -162,7 +167,7 @@ def buyItem():
         level = fetchLevel(item)
 
         if balance > level:
-            os.system('cls')
+            os.system("cls")
 
             fetchDetails(item)
 
@@ -176,7 +181,7 @@ def buyItem():
 
 def bought():
 
-    def fetchBoughtItems(ob_cat,ob_field):
+    def fetchBoughtItems(ob_cat, ob_field):
         fetch_items = f"select * from objectives where ob_cat = '{ob_cat}' and ob_field = '{ob_field}' and status = 'owned'"
         sql.server.execute(fetch_items)
         for x in sql.server:
@@ -204,7 +209,7 @@ def bought():
         print("\t Opening Pics...")
         pics_list = []
         if result:
-            pics = result.get('pics', [])
+            pics = result.get("pics", [])
             pics_list.extend(pics)
 
             if pics_list:
@@ -214,48 +219,55 @@ def bought():
                 print("No pics found.")
 
     while True:
-        os.system('cls')
-        print("------------------------------------------------------------------------------------------------------------")
+        os.system("cls")
+        print(
+            "------------------------------------------------------------------------------------------------------------"
+        )
         print(f"  :: OBJECTIVES ::")
-        print("-------------------------------------------------------------------------------------------------------------")
+        print(
+            "-------------------------------------------------------------------------------------------------------------"
+        )
         print("\t :: CORE")
         print("\t\t :: PROFILE")
-        fetchBoughtItems('core', 'profile')
+        fetchBoughtItems("core", "profile")
         print("\t\t :: INTRO")
-        fetchBoughtItems('core', 'intro')
+        fetchBoughtItems("core", "intro")
         print("")
         print("\t :: ASSET")
         print("\t\t :: COMPANY")
-        fetchBoughtItems('asset', 'company')
+        fetchBoughtItems("asset", "company")
         print("\t\t :: PROPERTIES")
-        fetchBoughtItems('asset', 'properties')
+        fetchBoughtItems("asset", "properties")
         print("\t\t :: INVESTMENT")
-        fetchBoughtItems('asset', 'investment')
+        fetchBoughtItems("asset", "investment")
         print("")
         print("\t :: LAVISH")
         print("\t\t :: HOUSE")
-        fetchBoughtItems('lavish', 'house')
+        fetchBoughtItems("lavish", "house")
         print("\t\t :: CAR")
-        fetchBoughtItems('lavish', 'car')
+        fetchBoughtItems("lavish", "car")
         print("\t\t :: ULTRA")
-        fetchBoughtItems('lavish', 'ultra')
+        fetchBoughtItems("lavish", "ultra")
         print("\t\t :: LIFESTYLE")
-        fetchBoughtItems('lavish', 'lifestyle')
+        fetchBoughtItems("lavish", "lifestyle")
         print("\t\t :: SOCIAL")
-        fetchBoughtItems('lavish', 'social')
+        fetchBoughtItems("lavish", "social")
         print("")
         print("\t :: LIFE")
         print("\t\t :: RELATIONS")
-        fetchBoughtItems('life', 'relation')
-        print("------------------------------------------------------------------------------------------------------------")
+        fetchBoughtItems("life", "relation")
+        print(
+            "------------------------------------------------------------------------------------------------------------"
+        )
         print(" : OPTIONS :   1.VIEW")
         option = int(input(" : Choose : "))
 
         if option == 0:
             os.system(var.store_screen)
-    
+
         if option == 1:
             viewBoughtItems()
+
 
 def editObjective():
     while True:
@@ -302,13 +314,13 @@ def editObjective():
         new_ob_price = input("\t# Enter Price: ").strip()
         new_ob_price = int(new_ob_price) if new_ob_price.isdigit() else ob_price
 
-
-        new_ob_achieved_date = input("\t# Enter Date Achieved: ").strip() or ob_achieved_date
+        new_ob_achieved_date = (
+            input("\t# Enter Date Achieved: ").strip() or ob_achieved_date
+        )
 
         # Handle the input for age
         new_ob_age = input("\t# Enter Age: ").strip()
         new_ob_age = int(new_ob_age) if new_ob_age.isdigit() else ob_age
-
 
         new_ob_status = input("\t# Enter Status: ").strip() or ob_status
 
@@ -353,7 +365,7 @@ def unlockObjective():
     print(f"\t# Age: {ob_age}")
     print(f"\t# Status: {ob_status}")
 
-    if ob_status == 'unlock':
+    if ob_status == "unlock":
         print("\t Objective is already unlocked.")
         return
 
@@ -363,13 +375,16 @@ def unlockObjective():
 
     if confirmation == 1:
         # Update the status to 'unlock' in the database
-        update_query = f"UPDATE objectives SET status = 'unlock' WHERE ob_id = {ob_id_to_unlock}"
+        update_query = (
+            f"UPDATE objectives SET status = 'unlock' WHERE ob_id = {ob_id_to_unlock}"
+        )
         sql.server.execute(update_query)
         sql.engine.commit()
 
         print("\t Objective unlocked successfully.")
     else:
         print("\t Unlocking canceled.")
+
 
 # Add this function call where needed in your script.
 # For example, you can call it in the main loop with an additional option.
@@ -381,44 +396,58 @@ def unlockObjective():
 
 def viewItem():
     print("--")
-    view = input("\t :: View: ")
-    check_item = f"select ob_price from objectives where ob_name = '{view}'"
-    sql.server.execute(check_item)
-    for x in sql.server:
-        price = int(x[0])
+    view = input("\t :: View: ").strip()
 
+    # Get price of the selected objective
+    check_item = f"SELECT ob_price FROM objectives WHERE ob_name = '{view}'"
+    sql.server.execute(check_item)
+    price_result = sql.server.fetchone()
+
+    if not price_result:
+        print("\t❌ Objective not found.")
+        return
+
+    price = int(price_result[0])
     balance = availableAmount()
 
-    if balance > price:
-        view_item = f"select * from objectives where ob_name = '{view}'"
+    if balance >= price:
+        view_item = f"SELECT * FROM objectives WHERE ob_name = '{view}'"
         sql.server.execute(view_item)
-        for x in sql.server:
-            print("--")
-            print(f"\t Name : {x[1].upper()}")
-            print(f"\t Price : {number_to_inr(int(x[5]))}")
-            print("--")
-            # Use find_one if you expect only one document
-            result = mongo_cl.find_one({"ob_name": x[1]})
+        item = sql.server.fetchone()
 
-            pics_list = []
+        if item:
+            print("--")
+            print(f"\t Name  : {item[1].upper()}")
+            print(f"\t Price : {number_to_inr(int(item[5]))}")
+            print("--")
+
+            # Fetch from MongoDB
+            result = mongo_cl.find_one({"ob_name": item[1]})
             if result:
-                pics = result.get('pics', [])
-                pics_list.extend(pics)
-
-                if len(pics_list) >=1:
-                    # Construct the command to open all links in Firefox
+                pics_list = result.get("pics", [])
+                if pics_list:
                     print("\t! Opening Browser")
                     open_browser(pics_list)
                     os.system(var.store_screen)
                 else:
-                    print("No pics found.")
-
+                    print("\tNo pics found in MongoDB.")
+            else:
+                print("\tNo MongoDB entry found.")
+        else:
+            print("\t❌ Item details not found.")
     else:
-        print("\t No Access.....")
+        print(f"\t❌ Not enough balance! You need {number_to_inr(price)} but have only {number_to_inr(balance)}")
         time.sleep(2)
 
-def insert_into_mongodb(name, pic_urls):
-    mongo_cl.update_one({"ob_name": name}, {"$set": {"pics": pic_urls}}, upsert=True)
+
+
+def insert_into_mongodb(name, pic_urls, field, cat):
+    mongo_cl.update_many(
+        {"ob_name": name},  # Filter
+        {"$set": {"ob_field": field, "ob_cat": cat, "pics": pic_urls}},
+        upsert=True,  # Upsert
+    )
+
 
 def addNewObjective():
     print("--")
@@ -444,11 +473,11 @@ def addNewObjective():
         pic_urls = []
         pic_input = 1
         while pic_input:
-            pic_url = input(f"\t\t! PIC-{pic_input+1}: ")
+            pic_url = input(f"\t\t! PIC: ")
             pic_urls.append(pic_url)
             pic_input = int(input("\t\t\t -- Again: "))
 
-        insert_into_mongodb(ob_name, pic_urls)
+        insert_into_mongodb(ob_name, pic_urls, ob_field, ob_cat)
         print("")
         print("\t :: Images Inserted Successfully ::")
 
@@ -457,58 +486,64 @@ def addNewObjective():
 
 
 while True:
-    os.system('cls')
-    print("------------------------------------------------------------------------------------------------------------")
+    os.system("cls")
+    print(
+        "------------------------------------------------------------------------------------------------------------"
+    )
     print(f"  :: TARGETS ::")
     print(f"   : Balance - {(number_to_inr(availableAmount()))} Cr")
-    print("-------------------------------------------------------------------------------------------------------------")
+    print(
+        "-------------------------------------------------------------------------------------------------------------"
+    )
 
     print("\t :: PROFESSIONAL")
     print("\t\t :: Positions")
-    fetchItems('positions','professional')
+    fetchItems("positions", "professional")
     print("\t\t :: Tags")
-    fetchItems('tags','professional')
+    fetchItems("tags", "professional")
     print("")
 
     print("\t :: FINANCIAL")
     print("\t\t :: COMPANIES ")
-    fetchItems('companies', 'financial')
+    fetchItems("companies", "financial")
     print("\t\t :: INVESTMENTS")
-    fetchItems('investments', 'financial')
+    fetchItems("investments", "financial")
     print("\t\t :: LIQUID")
-    fetchItems('liquid', 'financial')
+    fetchItems("liquid", "financial")
     print("")
 
     print("\t :: LAVISH")
     print("\t\t :: MANSIONS ")
-    fetchItems('mansions', 'lavish')
+    fetchItems("mansions", "lavish")
     print("\t\t :: CARS")
-    fetchItems('cars', 'lavish')
+    fetchItems("cars", "lavish")
     print("\t\t :: Ultra")
-    fetchItems('ultra', 'lavish')
+    fetchItems("ultra", "lavish")
     print("\t\t :: LIFESTYLE")
-    fetchItems('lifestyle', 'lavish')
+    fetchItems("lifestyle", "lavish")
     print("\t\t :: HOE")
-    fetchItems('hoe', 'lavish')
+    fetchItems("hoe", "lavish")
     print("")
 
     print("\t :: PERSONAL")
     print("\t\t :: SELF ")
-    fetchItems('self', 'personal')
+    fetchItems("self", "personal")
     print("\t\t :: Parents")
-    fetchItems('parents', 'personal')
+    fetchItems("parents", "personal")
     print("\t\t :: Relations")
-    fetchItems('relations', 'personal')
+    fetchItems("relations", "personal")
     print("")
 
     print("\t :: PHILANTHROPIC")
     print("\t\t ::  FOOD ")
-    fetchItems('food', 'philanthropic')
+    fetchItems("food", "philanthropic")
     print("\t\t ::  EDUCATION ")
-    fetchItems('education', 'philanthropic')
+    fetchItems("education", "philanthropic")
     print("\t\t ::  GLOBAL ")
-    fetchItems('global', 'philanthropic')
-    print("------------------------------------------------------------------------------------------------------------")
+    fetchItems("global", "philanthropic")
+    print(
+        "------------------------------------------------------------------------------------------------------------"
+    )
     print(" : OPTIONS :   1[VIEW]    2[UNLOCK]    3[EDIT]    4[ADD]")
     option = int(input(" : Choose : "))
 
@@ -526,4 +561,3 @@ while True:
 
     if option == 4:
         addNewObjective()
-

@@ -12,10 +12,7 @@ start cmd /k "title TASKS & python tasks.py"
 start cmd /k "title CHARACTER & python character.py"
 start cmd /k "title MATRIX & python matrix.py"
 start cmd /k "title STORE & python store.py"
+start cmd /k "title SETTING & python setting.py"
+start cmd /k "title TIME & python minute.py"
 
-
-cd faces
-start cmd /k "title SUPERHUMAN & python superhuman.py"
-start cmd /k "title TECHGENIUS & python techgenius.py"
-start cmd /k "title ENTREPRENEUR & python entrepreneur.py"
 

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Skills</title>
+<style>
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: left;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            text-decoration: none;
+            color: #337ab7;
+        }
+
+        a:hover {
+            color: #23527c;
+        }
+    </style>
+</style>
+</head>
+<body>
+<h1>Skills</h1>
+
+<table>
+    <tr>
+        <th>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Face</td>
+            <td>Field</td>
+            <td>LT</td>
+            <td>RT</td>
+            <td>TT</td>
+            <td>LM</td>
+            <td>RM</td>
+            <td>TM</td>
+            <td>Notion</td>
+            <td>Location</td>
+        </th>
+    </tr>
+    {% for x in data %}
+    <tr>
+        <td>{{ x['skill_id'] }}</td>
+        <td>{{ x['name'] }}</td>
+        <td>{{ x['face'] }}</td>
+        <td>{{ x['field'] }}</td>
+        <td>{{ x['t_learn'] }}</td>
+        <td>{{ x['t_recall'] }}</td>
+        <td>{{ x['t_test'] }}</td>
+        <td>{{ x['m_learn'] }}</td>
+        <td>{{ x['m_recall'] }}</td>
+        <td>{{ x['m_test'] }}</td>
+        <td><a href="{{ x['notes'] }}">Notion</a></td>
+        <td>{{ x['location_mapped'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

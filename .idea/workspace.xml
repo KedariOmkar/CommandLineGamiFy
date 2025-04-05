@@ -5,13 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bc6aef8-7a72-4b07-ac6c-d4b5c227e9bc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/gamifygoals.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/checking/Charts.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/templates/agents.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/templates/bucket.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/templates/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/templates/lifestyle.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/templates/locations.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/templates/pics.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/templates/porn.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screen/minute.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screen/statistics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/common_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/common_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database/mysql_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/mysql_connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screen/character.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/screen/character.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screen/faces/entrepreneur.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/screen/faces/entrepreneur.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screen/faces/superhuman.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/screen/faces/superhuman.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screen/faces/techgenius.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/screen/faces/techgenius.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screen/home.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/screen/home.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screen/matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/screen/matrix.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screen/setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/screen/setting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screen/stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/screen/stats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screen/store.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/screen/store.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screen/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/screen/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start.bat" beforeDir="false" afterPath="$PROJECT_DIR$/start.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +46,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -39,23 +64,37 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Python.Charts.executor": "Run",
+    "Python.app.executor": "Run",
+    "Python.character.executor": "Run",
     "Python.check1.executor": "Run",
+    "Python.checking.executor": "Run",
     "Python.home (1).executor": "Run",
     "Python.home.executor": "Run",
+    "Python.minute.executor": "Run",
+    "Python.selfdb.executor": "Run",
     "Python.setting.executor": "Run",
     "Python.stats.executor": "Run",
     "Python.store.executor": "Run",
+    "Python.test_module.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master"
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/play"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="W:\Builds\Python\GAMIFYGOALS\gamifygoals\checking" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="W:\Builds\Python\GAMIFYGOALS\gamifygoals\src\screen" />
       <recent name="W:\Builds\Python\GAMIFYGOALS\gamifygoals\src" />
     </key>
   </component>
   <component name="RunManager" selected="Python.store">
-    <configuration name="check1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="gamifygoals" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -64,11 +103,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/check" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/gui" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/check/check1.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gui/app.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -77,7 +116,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="home (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="home" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="gamifygoals" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -91,28 +130,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/screen/home.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="setting" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="gamifygoals" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/screen" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/screen/setting.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -165,20 +182,42 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test_module" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="gamifygoals" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_module.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.store" />
         <item itemvalue="Python.stats" />
-        <item itemvalue="Python.setting" />
-        <item itemvalue="Python.home (1)" />
-        <item itemvalue="Python.check1" />
+        <item itemvalue="Python.test_module" />
+        <item itemvalue="Python.app" />
+        <item itemvalue="Python.home" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-48aec45f0201-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.17011.127" />
+        <option value="bundled-python-sdk-14705d77f0bb-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.25659.43" />
       </set>
     </attachedChunks>
   </component>
@@ -192,5 +231,16 @@
       <updated>1717154673141</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -12,12 +12,11 @@ from src.common.common_constants import var
 from src.database.mysql_connection import sql
 
 
-
 def run_first():
     """
-        Function which is used to run before starting the home.py
+    Function which is used to run before starting the home.py
 
-        use : it inserts the mysql database rows in the day-to-day tables
+    use : it inserts the mysql database rows in the day-to-day tables
 
     """
 
@@ -38,14 +37,13 @@ def run_first():
         return cur_date
 
     def insertReportTime(report_table):
-
         """
-            This function inserts the row in the report time
-            - learn_time
-            - recall_time
-            - test_time
+        This function inserts the row in the report time
+        - learn_time
+        - recall_time
+        - test_time
 
-            returns : nothing
+        returns : nothing
         """
 
         insert_query = f"""INSERT INTO {report_table}
@@ -59,15 +57,14 @@ def run_first():
         sql.engine.commit()
 
     def insertReportMission(report_table):
-
         """
 
-            This function inserts the row in the report mission
-            - learn_mission
-            - recall_mission
-            - test_mission
+        This function inserts the row in the report mission
+        - learn_mission
+        - recall_mission
+        - test_mission
 
-            returns : nothing
+        returns : nothing
 
         """
         insert_query = f"""INSERT INTO {report_table}
@@ -186,15 +183,15 @@ def run_first():
         sql.engine.commit()
 
     # Recall Insert
-    insertReportTime('report_time_recall')
+    insertReportTime("report_time_recall")
     # Test Insert
-    insertReportTime('report_time_test')
+    insertReportTime("report_time_test")
     # learn Mission
-    insertReportMission('report_mission_learn')
+    insertReportMission("report_mission_learn")
     # Recall Mission
-    insertReportMission('report_mission_recall')
+    insertReportMission("report_mission_recall")
     # Test Mission
-    insertReportMission('report_mission_test')
+    insertReportMission("report_mission_test")
     # Mistake Insert
     insertGameMatrixAgents()
     # Workout Insert
@@ -206,10 +203,10 @@ def run_first():
     # Insert Competition
     insertReportCompetition()
 
-
-
     check_list = []
-    check_condition = "select cur_date from character_routine where cur_date = CURDATE()"
+    check_condition = (
+        "select cur_date from character_routine where cur_date = CURDATE()"
+    )
     sql.server.execute(check_condition)
     for x in sql.server:
         cur_date = x[0]
@@ -224,17 +221,17 @@ def run_first():
         # Habit insert
         insertCharacterHabits()
         # Learn Insert
-        insertReportTime('report_time_learn')
+        insertReportTime("report_time_learn")
         # Recall Insert
-        insertReportTime('report_time_recall')
+        insertReportTime("report_time_recall")
         # Test Insert
-        insertReportTime('report_time_test')
+        insertReportTime("report_time_test")
         # learn Mission
-        insertReportMission('report_mission_learn')
+        insertReportMission("report_mission_learn")
         # Recall Mission
-        insertReportMission('report_mission_recall')
+        insertReportMission("report_mission_recall")
         # Test Mission
-        insertReportMission('report_mission_test')
+        insertReportMission("report_mission_test")
         # Mistake Insert
         insertGameMatrixAgents()
         # Workout Insert
@@ -247,94 +244,114 @@ def run_first():
         insertReportCompetition()
 
 
-
 """ First Function Call """
 run_first()
 
 
-
 def fetchFromSetting(game_option):
-    fetch_field = f"select game_value from game_setting where game_option = '{game_option}'"
+    fetch_field = (
+        f"select game_value from game_setting where game_option = '{game_option}'"
+    )
     sql.server.execute(fetch_field)
     for x in sql.server:
         game_value = x[0]
 
     return game_value
 
+
 """ This functions gives the headings data """
+
+
 def dayOngoing():
-    start_date_str = fetchFromSetting('enddate')  # Assuming fetchFromSetting returns a string
-    end_date = datetime.datetime.strptime(start_date_str, '%Y-%m-%d').date()
+    start_date_str = fetchFromSetting(
+        "enddate"
+    )  # Assuming fetchFromSetting returns a string
+    end_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d").date()
 
     today = datetime.date.today()
     days_from_start = (end_date - today).days
 
     return days_from_start
+
+
 def displayDate():
     today = datetime.date.today()
 
     return today
 
 
-
 """ This function returns the total_value of multiple columsn for complete game """
-def getTotalValue(total_value,table_name):
+
+
+def getTotalValue(total_value, table_name):
     fetch_total = f"select sum({total_value}) from {table_name}"
     sql.server.execute(fetch_total)
     for x in sql.server:
         total = x[0]
-        
+
     return total
 
+
 """ This function returns the total_value of multiple columsn for today """
+
+
 def getTotalValueToday(total_value, table_name):
-    fetch_total = f"select sum({total_value}) from {table_name} where cur_date = CURDATE()"
+    fetch_total = (
+        f"select sum({total_value}) from {table_name} where cur_date = CURDATE()"
+    )
     sql.server.execute(fetch_total)
     for x in sql.server:
         total = x[0]
 
     return total
 
+
 def format_inr(amount):
     return "₹{:,.2f}".format(amount)
 
+
 """ This function returns the total_money earned in the game"""
+
+
 def getTotalMoney():
     fetch_money = "select sum(total_money) from report_money"
     sql.server.execute(fetch_money)
     for x in sql.server:
-        money_earned = (x[0]/10000000)
+        money_earned = x[0] / 10000000
         formated_money = format_inr(money_earned)
 
     return formated_money
 
 
-
 """ This function returns the total_money earned today """
+
+
 def getTotalMoneyToday():
     fetch_money = "select sum(total_money) from report_money where cur_date = CURDATE()"
     sql.server.execute(fetch_money)
     for x in sql.server:
-        money_earned = int(x[0]/10000000)
+        money_earned = int(x[0] / 10000000)
 
     return money_earned
 
 
 """ This function gives stats for complete game """
+
+
 def gameStats():
     # Time
-    learn_time = getTotalValue('total_time', 'report_time_learn')
-    recall_time = getTotalValue('total_time', 'report_time_recall')
-    test_time = getTotalValue('total_time', 'report_time_test')
+    learn_time = getTotalValue("total_time", "report_time_learn")
+    recall_time = getTotalValue("total_time", "report_time_recall")
+    test_time = getTotalValue("total_time", "report_time_test")
 
     total_time = int(learn_time + recall_time + test_time)
     target_time = var.target_time
     time_percentage = int((total_time / target_time) * 100)
 
     # Missions
-    learn_mission = getTotalValue('total_mission', 'report_mission_learn')
-    recall_mission = getTotalValue('total_mission', 'report_mission_recall')
-    test_mission = getTotalValue('total_mission', 'report_mission_test')
+    learn_mission = getTotalValue("total_mission", "report_mission_learn")
+    recall_mission = getTotalValue("total_mission", "report_mission_recall")
+    test_mission = getTotalValue("total_mission", "report_mission_test")
 
     total_mission = int(learn_mission + recall_mission + test_mission)
     target_mission = var.target_mission
@@ -346,6 +363,7 @@ def gameStats():
             total_skill_count = x[0]
 
         return total_skill_count
+
     def total_skills_mastered(table_name):
         sql.server.execute(f"select COUNT(id) from {table_name} where level = 'king' ")
         for x in sql.server:
@@ -353,19 +371,17 @@ def gameStats():
 
         return total_skill_count_mastered
 
-
     # Total Skills in tg and en
-    tg_skill = total_skills('skill_tg')
-    en_skill = total_skills('skill_en')
+    tg_skill = total_skills("skill_tg")
+    en_skill = total_skills("skill_en")
     # Total Skills
     total_skills_for_gbm = int(tg_skill + en_skill)
 
     # Skills Acquired in tg and en
-    tg_skill_mastered = total_skills_mastered('skill_tg')
-    en_skill_mastered = total_skills_mastered('skill_en')
+    tg_skill_mastered = total_skills_mastered("skill_tg")
+    en_skill_mastered = total_skills_mastered("skill_en")
     # Mastered Skill
     total_skills_for_gbm_mastered = int(tg_skill_mastered + en_skill_mastered)
-
 
     # Percentage
     weapons_acquired = int((total_skills_for_gbm_mastered / total_skills_for_gbm) * 100)
@@ -376,26 +392,51 @@ def gameStats():
     """ printing the stats """
 
     print("\t :: GAME STATS")
-    print(f"\t\t: {var.time_variable} :", total_time, f"{var.time_measure}", " - ", time_percentage, "%")
-    print(f"\t\t: {var.mission_variable} :", total_mission, f"{var.mission_measure}", " - ", mission_percentage, "%")
-    print(f"\t\t: {var.skill_variable} :",tg_skill_mastered, f"{var.skill_measure}", " - ", weapons_acquired, "%")
-    print(f"\t\t: {var.money_variable} :",total_money,"Cr")
+    print(
+        f"\t\t: {var.time_variable} :",
+        total_time,
+        f"{var.time_measure}",
+        " - ",
+        time_percentage,
+        "%",
+    )
+    print(
+        f"\t\t: {var.mission_variable} :",
+        total_mission,
+        f"{var.mission_measure}",
+        " - ",
+        mission_percentage,
+        "%",
+    )
+    print(
+        f"\t\t: {var.skill_variable} :",
+        tg_skill_mastered,
+        f"{var.skill_measure}",
+        " - ",
+        weapons_acquired,
+        "%",
+    )
+    print(f"\t\t: {var.money_variable} :", total_money, "Cr")
+
 
 """ This function gives stats for todays """
+
+
 def todayStats():
+
     # Time
-    learn_time = getTotalValueToday('total_time', 'report_time_learn')
-    recall_time = getTotalValueToday('total_time', 'report_time_recall')
-    test_time = getTotalValueToday('total_time', 'report_time_test')
+    learn_time = getTotalValueToday("total_time", "report_time_learn")
+    recall_time = getTotalValueToday("total_time", "report_time_recall")
+    test_time = getTotalValueToday("total_time", "report_time_test")
 
     total_time = int(learn_time + recall_time + test_time)
     target_time = var.target_time_day
     time_percentage = int((total_time / target_time) * 100)
 
     # Missions
-    learn_mission = getTotalValueToday('total_mission', 'report_mission_learn')
-    recall_mission = getTotalValueToday('total_mission', 'report_mission_recall')
-    test_mission = getTotalValueToday('total_mission', 'report_mission_test')
+    learn_mission = getTotalValueToday("total_mission", "report_mission_learn")
+    recall_mission = getTotalValueToday("total_mission", "report_mission_recall")
+    test_mission = getTotalValueToday("total_mission", "report_mission_test")
 
     total_mission = int(learn_mission + recall_mission + test_mission)
     target_mission = var.target_mission_day
@@ -406,31 +447,60 @@ def todayStats():
     money_percentage = int((total_money / var.target_cash_day) * 100)
 
     # enemies
-    total_enemies = getTotalValueToday('total_agents_killed','game_matrix_agents')
-    agent_percentage = int((total_enemies/var.target_agents_kill)*100)
+    total_enemies = getTotalValueToday("total_agents_killed", "game_matrix_agents")
+    agent_percentage = int((total_enemies / var.target_agents_kill) * 100)
 
     print("\t :: TODAY STATS")
-    print(f"\t\t: {var.time_variable} :", total_time, f"{var.time_measure}", " - ", time_percentage, "%")
-    print(f"\t\t: {var.mission_variable} :", total_mission, f"{var.mission_measure}", " - ", mission_percentage, "%")
-    print(f"\t\t: {var.money_variable} :",number_to_inr(total_money),f"{var.money_measure}"," - " ,money_percentage,"%")
-    print(f"\t\t: {var.agent_variable} :",total_enemies, f"{var.agent_measure}"," - ",agent_percentage,"%" )
-
+    print(
+        f"\t\t: {var.time_variable} :",
+        total_time,
+        f"{var.time_measure}",
+        " - ",
+        time_percentage,
+        "%",
+    )
+    print(
+        f"\t\t: {var.mission_variable} :",
+        total_mission,
+        f"{var.mission_measure}",
+        " - ",
+        mission_percentage,
+        "%",
+    )
+    print(
+        f"\t\t: {var.money_variable} :",
+        number_to_inr(total_money),
+        f"{var.money_measure}",
+        " - ",
+        money_percentage,
+        "%",
+    )
+    print(
+        f"\t\t: {var.agent_variable} :",
+        total_enemies,
+        f"{var.agent_measure}",
+        " - ",
+        agent_percentage,
+        "%",
+    )
 
 
 """ This function is used to give todays game percentage completion """
+
+
 def gbmTodayPercentage():
-    learn_time = getTotalValueToday('total_time', 'report_time_learn')
-    recall_time = getTotalValueToday('total_time', 'report_time_recall')
-    test_time = getTotalValueToday('total_time', 'report_time_test')
+    learn_time = getTotalValueToday("total_time", "report_time_learn")
+    recall_time = getTotalValueToday("total_time", "report_time_recall")
+    test_time = getTotalValueToday("total_time", "report_time_test")
 
     total_time = int(learn_time + recall_time + test_time)
     target_time = var.target_time_day
     time_percentage = int((total_time / target_time) * 100)
 
     # Missions
-    learn_mission = getTotalValueToday('total_mission', 'report_mission_learn')
-    recall_mission = getTotalValueToday('total_mission', 'report_mission_recall')
-    test_mission = getTotalValueToday('total_mission', 'report_mission_test')
+    learn_mission = getTotalValueToday("total_mission", "report_mission_learn")
+    recall_mission = getTotalValueToday("total_mission", "report_mission_recall")
+    test_mission = getTotalValueToday("total_mission", "report_mission_test")
 
     total_mission = int(learn_mission + recall_mission + test_mission)
     target_mission = var.target_mission_day
@@ -442,53 +512,64 @@ def gbmTodayPercentage():
 
 
 """ This function is used to give complete game percentage completion """
-def gbmGamePercentage():
 
+
+def gbmGamePercentage():
     """
 
-        This function shows the percentage of game completed
+    This function shows the percentage of game completed
 
     """
 
     # Time
-    learn_time = getTotalValue('total_time', 'report_time_learn')
-    recall_time = getTotalValue('total_time', 'report_time_recall')
-    test_time = getTotalValue('total_time', 'report_time_test')
+    learn_time = getTotalValue("total_time", "report_time_learn")
+    recall_time = getTotalValue("total_time", "report_time_recall")
+    test_time = getTotalValue("total_time", "report_time_test")
 
     total_time = int(learn_time + recall_time + test_time)
     target_time = var.target_time
     time_percentage = int((total_time / target_time) * 100)
 
     # Missions
-    learn_mission = getTotalValue('total_mission', 'report_mission_learn')
-    recall_mission = getTotalValue('total_mission', 'report_mission_recall')
-    test_mission = getTotalValue('total_mission', 'report_mission_test')
+    learn_mission = getTotalValue("total_mission", "report_mission_learn")
+    recall_mission = getTotalValue("total_mission", "report_mission_recall")
+    test_mission = getTotalValue("total_mission", "report_mission_test")
 
     total_mission = int(learn_mission + recall_mission + test_mission)
     target_mission = var.target_mission
     mission_percentage = int((total_mission / target_mission) * 100)
 
-    average_game_percentage = int((time_percentage+mission_percentage)/2)
+    average_game_percentage = int((time_percentage + mission_percentage) / 2)
 
     return average_game_percentage
 
 
-
-
 while True:
-    os.system('cls')
+    os.system("cls")
 
     print("----")
     print(f" DATE: {displayDate()} -- REMAINING - {dayOngoing()}")
-    print("------------------------------------------------------------------------------------------------------------")
-    print(f"\t :: {var.core_goal} :: GAME - {gbmGamePercentage()}%  --  TODAY - {gbmTodayPercentage()}%")
-    print("------------------------------------------------------------------------------------------------------------")
+    print(
+        "------------------------------------------------------------------------------------------------------------"
+    )
+    print(
+        f"\t :: {var.core_goal} :: GAME - {gbmGamePercentage()}%  --  TODAY - {gbmTodayPercentage()}%"
+    )
+    print(
+        "------------------------------------------------------------------------------------------------------------"
+    )
     gameStats()
     print("")
     todayStats()
-    print("------------------------------------------------------------------------------------------------------------")
-    print("\t\t1. FACES    2. TASKS    3. STATS    4. CHARACTER    5. MAYA    6. TARGETS    7. SETTINGS    ")
-    print("------------------------------------------------------------------------------------------------------------")
+    print(
+        "------------------------------------------------------------------------------------------------------------"
+    )
+    print(
+        "\t\t1. FACES    2. TASKS    3. STATS    4. CHARACTER    5. MAYA    6. TARGETS    7. SETTINGS    "
+    )
+    print(
+        "------------------------------------------------------------------------------------------------------------"
+    )
 
     # Select Tab
     select = int(input(" # Select: "))
@@ -534,5 +615,3 @@ while True:
         time.sleep(1)
         os.system("TASKKILL /F /IM python.exe >nul 2>&1")
         print("")
-
-

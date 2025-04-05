@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifestyle Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .custom-card {
+            transition: all 0.3s ease;
+        }
+        .custom-card:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <header class="bg-gray-800 p-4 text-center">
+        <h1 class="text-3xl font-bold mb-4">Lifestyle Tracker</h1>
+    </header>
+
+    <div class="container mx-auto p-4">
+        <div class="flex flex-wrap justify-center mb-4">
+            <button class="tab-button bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded m-1" data-tab="routine">Routine</button>
+            <button class="tab-button bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded m-1" data-tab="shield">Shield</button>
+            <button class="tab-button bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded m-1" data-tab="sharp">Sharp</button>
+            <button class="tab-button bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded m-1" data-tab="silent">Silent</button>
+            <button class="tab-button bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded m-1" data-tab="habits">Habits</button>
+        </div>
+
+        <div id="routine" class="tab-content">
+            <h2 class="text-2xl font-bold mb-4">Daily Routine</h2>
+            <table class="w-full bg-gray-800 rounded-lg overflow-hidden">
+                <thead>
+                    <tr class="bg-gray-700">
+                        <th class="p-3 text-left">Time</th>
+                        <th class="p-3 text-left">Activity</th>
+                        <th class="p-3 text-left">Completed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="p-3">5:00 AM</td>
+                        <td class="p-3">Get up</td>
+                        <td class="p-3">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+                        </td>
+                    </tr>
+                    <!-- Add more routine items here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="shield" class="tab-content">
+            <h2 class="text-2xl font-bold mb-4">Shield (Muscle Tracker)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="custom-card bg-gray-800 rounded-lg p-4 shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Chest</h3>
+                    <p class="text-gray-400 mb-2">Reps: <span id="chest-reps">0</span></p>
+                    <button onclick="addReps('chest')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Add Reps
+                    </button>
+                </div>
+                <div class="custom-card bg-gray-800 rounded-lg p-4 shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Back</h3>
+                    <p class="text-gray-400 mb-2">Reps: <span id="back-reps">0</span></p>
+                    <button onclick="addReps('back')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Add Reps
+                    </button>
+                </div>
+                <div class="custom-card bg-gray-800 rounded-lg p-4 shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Bicep</h3>
+                    <p class="text-gray-400 mb-2">Reps: <span id="bicep-reps">0</span></p>
+                    <button onclick="addReps('bicep')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Add Reps
+                    </button>
+                </div>
+                <div class="custom-card bg-gray-800 rounded-lg p-4 shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Tricep</h3>
+                    <p class="text-gray-400 mb-2">Reps: <span id="tricep-reps">0</span></p>
+                    <button onclick="addReps('tricep')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Add Reps
+                    </button>
+                </div>
+                <div class="custom-card bg-gray-800 rounded-lg p-4 shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Abs</h3>
+                    <p class="text-gray-400 mb-2">Reps: <span id="abs-reps">0</span></p>
+                    <button onclick="addReps('abs')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Add Reps
+                    </button>
+                </div>
+                <div class="custom-card bg-gray-800 rounded-lg p-4 shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Leg</h3>
+                    <p class="text-gray-400 mb-2">Reps: <span id="leg-reps">0</span></p>
+                    <button onclick="addReps('leg')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Add Reps
+                    </button>
+                </div>
+                <div class="custom-card bg-gray-800 rounded-lg p-4 shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Forearm</h3>
+                    <p class="text-gray-400 mb-2">Reps: <span id="forearm-reps">0</span></p>
+                    <button onclick="addReps('forearm')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Add Reps
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="sharp" class="tab-content">
+            <h2 class="text-2xl font-bold mb-4">Sharp (MMA Workouts)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+                <div class="custom-card bg-gray-800 rounded-lg p-4 shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Punches</h3>
+                    <p class="text-gray-400 mb-2">Reps: <span id="punches-reps">0</span></p>
+                    <button onclick="addReps('punches')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        Add Reps
+                    </button>
+                </div>
+                <div class="custom-card bg-gray-800 rounded-lg p-4 shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Kicks</h3>
+                    <p class="text-gray-400 mb-2">Reps: <span id="kicks-reps">0</span></p>
+                    <button onclick="addReps('kicks')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        Add Reps
+                    </button>
+                </div>
+                <div class="custom-card bg-gray-800 rounded-lg p-4 shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Defense</h3>
+                    <p class="text-gray-400 mb-2">Reps: <span id="defense-reps">0</span></p>
+                    <button onclick="addReps('defense')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        Add Reps
+                    </button>
+                </div>
+                <div class="custom-card bg-gray-800 rounded-lg p-4 shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Attack</h3>
+                    <p class="text-gray-400 mb-2">Reps: <span id="attack-reps">0</span></p>
+                    <button onclick="addReps('attack')" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        Add Reps
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="silent" class="tab-content">
+            <h2 class="text-2xl font-bold mb-4">Silent (Breathing, Focus, Meditation)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="custom-card bg-gray-800 rounded-lg p-4 shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Breathing</h3>
+                    <p class="text-gray-400 mb-2">Sessions: <span id="breathing-sessions">0</span></p>
+                    <button onclick="addSession('breathing')" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                        Add Session
+                    </button>
+                </div>
+                <div class="custom-card bg-gray-800 rounded-lg p-4 shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Focus</h3>
+                    <p class="text-gray-400 mb-2">Sessions: <span id="focus-sessions">0</span></p>
+                    <button onclick="addSession('focus')" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                        Add Session
+                    </button>
+                </div>
+                <div class="custom-card bg-gray-800 rounded-lg p-4 shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Meditation</h3>
+                    <p class="text-gray-400 mb-2">Sessions: <span id="meditation-sessions">0</span></p>
+                    <button onclick="addSession('meditation')" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                        Add Session
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="habits" class="tab-content">
+            <h2 class="text-2xl font-bold mb-4">Habits</h2>
+            <table class="w-full bg-gray-800 rounded-lg overflow-hidden">
+                <thead>
+                    <tr class="bg-gray-700">
+                        <th class="p-3 text-left">ID</th>
+                        <th class="p-3 text-left">Habit Name</th>
+                        <th class="p-3 text-left">Cue</th>
+                        <th class="p-3 text-left">Trigger</th>
+                        <th class="p-3 text-left">Routine</th>
+                        <th class="p-3 text-left">Fire Count</th>
+                        <th class="p-3 text-left">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="habits-table-body">
+                    <!-- Habit rows will be dynamically added here -->
+                </tbody>
+            </table>
+            <button onclick="addHabit()" class="mt-4 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                Add New Habit
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Set the first tab as active by default
+        document.querySelector('.tab-button').click();
+
+        // Function to add reps for muscles and MMA workouts
+        function addReps(muscle) {
+            const repsElement = document.getElementById(`${muscle}-reps`);
+            let reps = parseInt(repsElement.textContent);
+            reps += 1;
+            repsElement.textContent = reps;
+            // Here you would typically send an update to the backend
+        }
+
+        // Function to add sessions for silent activities
+        function addSession(activity) {
+            const sessionsElement = document.getElementById(`${activity}-sessions`);
+            let sessions = parseInt(sessionsElement.textContent);
+            sessions += 1;
+            sessionsElement.textContent = sessions;
+            // Here you would typically send an update to the backend
+        }
+
+        // Habits functionality
+        let habitId = 1;
+        const habits = [];
+
+        function addHabit() {
+            const habit = {
+                id: habitId++,
+                name: `Habit ${habitId}`,
+                cue: 'Default Cue',
+                trigger: 'Default Trigger',
+                routine: 'Default  Routine',
+                fireCount: 0
+            };
+            habits.push(habit);
+            renderHabits();
+        }
+
+        function fireHabit(id) {
+            const habit = habits.find(h => h.id === id);
+            if (habit) {
+                habit.fireCount++;
+                renderHabits();
+            }
+        }
+
+        function renderHabits() {
+            const tableBody = document.getElementById('habits-table-body');
+            tableBody.innerHTML = '';
+            habits.forEach(habit => {
+                const row = `
+                    <tr>
+                        <td class="p-3">${habit.id}</td>
+                        <td class="p-3">${habit.name}</td>
+                        <td class="p-3">${habit.cue}</td>
+                        <td class="p-3">${habit.trigger}</td>
+                        <td class="p-3">${habit.routine}</td>
+                        <td class="p-3">${habit.fireCount}</td>
+                        <td class="p-3">
+                            <button onclick="fireHabit(${habit.id})" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded">
+                                Fire
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        // Initialize with one habit
+        addHabit();
+    </script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locations | Gamify</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+    <style>
+        /* Custom styles */
+        .card-image img {
+            object-fit: cover;
+        }
+
+        .card-info {
+            padding: 1rem;
+        }
+
+        .card-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Table layout */
+        .table-layout {
+            display: none;
+        }
+
+        /* Gamification styles */
+        .header-section {
+            background-color: #3498db;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .location-card {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .location-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .location-card .card-info {
+            padding: 1rem;
+        }
+
+        .location-card .card-info p {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-card .card-info a {
+            font-size: 14px;
+            color: #337ab7;
+            text-decoration: none;
+        }
+
+        .location-card .card-info a:hover {
+            color: #23527c;
+        }
+
+        .toggle-button {
+            background-color: #337ab7;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+
+        .toggle-button:hover {
+            background-color: #23527c;
+        }
+
+        .table-layout table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-layout th, .table-layout td {
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+            text-align: left;
+        }
+
+        .table-layout th {
+            background-color: #f7f7f7;
+        }
+    </style>
+</head>
+<body>
+
+
+    <header class="header-section">
+        <h1>Locations</h1>
+    </header>
+
+
+    <div class="container mx-auto p-4">
+        <button class="toggle-button" onclick="toggleLayout()">Toggle Layout</button>
+    </div>
+
+
+    <div class="container mx-auto p-4 grid-layout">
+
+
+        {% for x in data %}
+        <div class="location-card">
+            <img src="{{ x['location_banner'] }}" alt="{{ x['location_id'] }}">
+            <div class="card-info">
+                <p>Location ID: {{ x['location_id'] }}</p>
+                <a href="{{ x['location_link'] }}">Explore</a>
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+
+
+    <div class="container mx-auto p-4 table-layout">
+
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Location ID</th>
+                    <th>Image</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in data %}
+                <tr>
+                    <td>{{ x['location_id'] }}</td>
+                    <td><img src="{{ x['location_banner'] }}" alt="{{ x['location_id'] }}" width="50"></td>
+                    <td><a href="{{ x['location_link'] }}">Explore</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+    <script>
+        function toggleLayout() {
+            const gridLayout = document.querySelector('.grid-layout');
+            const tableLayout = document.querySelector('.table-layout');
+            const toggleButton = document.querySelector('.toggle-button');
+
+            if (gridLayout.style.display === 'none') {
+                gridLayout.style.display = 'flex';
+                tableLayout.style.display = 'none';
+                toggleButton.textContent = 'Toggle Layout';
+            } else {
+                gridLayout.style.display = 'none';
+                tableLayout.style.display = 'block';
+                toggleButton.textContent = 'Toggle Grid';
+            }
+        }
+    </script>
+
+
+</body>
+</html>
